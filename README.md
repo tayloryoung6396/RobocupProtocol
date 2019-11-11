@@ -11,6 +11,7 @@ RobocupProtocol/
 ├── decode_extended.cpp              # Decode using the extended message
 ├── encode_base.cpp                  # Encode using the official message
 ├── encode_extended.cpp              # Encode using the extended message
+├── run_all.sh                       # Script to build code and then run all permutations
 ├── robocup.proto                    # The official message
 ├── robocup_extension.proto          # The extended message
 └── utils.hpp                        # Utility functions for interpreting message contents
@@ -34,4 +35,6 @@ There are four binaries that are built `encode_base`, `encode_extended`, `decode
 `decode_base` will take a file as an argument and will decode that file using the official message protocol and print it to the screen in a json format.
 
 `decode_extended` will take a file as an argument and will decode that file using the extended message protocol and print it to the screen in a json format.
+
+Alternatively, if you execute the `run_all.sh` script, it will compile the code and run all permutations of encoding and decoding.
 
