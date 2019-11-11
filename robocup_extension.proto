@@ -105,6 +105,12 @@ message Message {
     /// Position, orientation, and covariance of detected robots on the field
     repeated Robot others = 8;
 
+    /// IDs 1-100 are reserved for official use
+
+    /****************************
+     * EXTENSIONS GO BELOW HERE *
+     ****************************/
+
     /// Maximum walking speed of the robot
     float max_walking_speed = 101;
 }
