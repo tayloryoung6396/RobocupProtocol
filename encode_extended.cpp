@@ -128,7 +128,7 @@ int main(void) {
     msg.set_max_walking_speed(0.25f);
 
     // Dump serialised message to file
-    std::ofstream ofs("base_message.pb", std::ofstream::binary);
+    std::ofstream ofs("extended_message.pb", std::ofstream::binary);
     std::string string_msg;
     msg.SerializeToString(&string_msg);
     ofs.write(string_msg.data(), string_msg.size());
