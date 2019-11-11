@@ -2,6 +2,7 @@
 #define PROTOCOL_UTILS_HPP
 
 #include <google/protobuf/timestamp.pb.h>
+#include <google/protobuf/util/json_util.h>
 #include <chrono>
 #include <iostream>
 #include <string>
@@ -32,6 +33,18 @@ std::string state(const T& state) {
 
 template <typename T>
 inline void print_message(const T& msg) {
+    ::google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace                = true;
+    options.always_print_primitive_fields = true;
+
+    std::string json_output;
+    ::google::protobuf::util::MessageToJsonString(msg, &json_output, options);
+
+    std::cout << "Parsed Message:" << std::endl;
+    std::cout << json_output << std::endl;
+
+    return;
+
     std::cout << "Parsed Message:" << std::endl;
     std::cout << "    Sent........: " << convert_timestamp(msg.timestamp()).time_since_epoch().count() << std::endl;
     std::cout << "    Received....: " << convert_timestamp(msg.received()).time_since_epoch().count() << std::endl;

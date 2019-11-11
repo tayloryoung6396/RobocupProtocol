@@ -124,21 +124,12 @@ int main(void) {
     // * Official message ends here *
     // ******************************
 
-    // Serialise the extended message in preparation for network transfer
-    std::string string_msg = msg.SerializeAsString();
-
     // Dump serialised message to file
     std::ofstream ofs("base_message.pb");
+    std::string string_msg;
+    msg.SerializeToString(&string_msg);
     ofs << string_msg;
     ofs.close();
-
-    // Open the extended message and parse it
-    std::ifstream ifs("extended_message.pb");
-
-    if (ifs.is_open()) {
-        // "Send" the message over the network and decode it
-        parse_message<robocup::humanoid::Message>(string_msg);
-    }
 
     return 0;
 }

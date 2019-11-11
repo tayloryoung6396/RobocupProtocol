@@ -108,6 +108,6 @@ message Message {
 
     /// IDs 1-100 are reserved for official use
 
-    /// Time the robot last saw the ball
+    /// Maximum walking speed of the robot
     float max_walking_speed = 101;
 }

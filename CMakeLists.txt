@@ -55,6 +55,14 @@ add_executable(encode_base encode_base.cpp ${base_message})
 target_include_directories(encode_base PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(encode_base protobuf::libprotobuf)
 
+add_executable(decode_base decode_base.cpp ${base_message})
+target_include_directories(decode_base PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(decode_base protobuf::libprotobuf)
+
 add_executable(encode_extended encode_extended.cpp ${extended_message})
 target_include_directories(encode_extended PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(encode_extended protobuf::libprotobuf)
+
+add_executable(decode_extended decode_extended.cpp ${extended_message})
+target_include_directories(decode_extended PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(decode_extended protobuf::libprotobuf)
