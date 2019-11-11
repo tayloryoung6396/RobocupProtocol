@@ -4,35 +4,32 @@ project(RobocupProtocol)
 # We need protobuf to generate the messages
 find_package(Protobuf REQUIRED)
 
-# Build our protobuf classes
-file(GLOB_RECURSE protos "${CMAKE_CURRENT_SOURCE_DIR}/**.proto")
-message(STATUS ${protos})
-foreach(proto ${protos})
+function(COMPILE_PROTO
+         proto_file
+         output_dir
+         return_var)
   # Get the file without the extension
-  get_filename_component(file_we ${proto} NAME_WE)
+  get_filename_component(file_we ${proto_file} NAME_WE)
 
   # Run the protocol buffer compiler on the builtin protocol buffers
-  add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.cc"
-                            "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.h"
+  add_custom_command(OUTPUT "${output_dir}/${file_we}.pb.cc"
+                            "${output_dir}/${file_we}.pb.h"
                      COMMAND ${PROTOBUF_PROTOC_EXECUTABLE}
                              ARGS
-                             --cpp_out=lite:${CMAKE_CURRENT_BINARY_DIR}
+                             --cpp_out=${output_dir}
                              -I${CMAKE_CURRENT_SOURCE_DIR}
-                             "${CMAKE_CURRENT_SOURCE_DIR}/${file_we}.proto"
-                     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${file_we}.proto"
-                     COMMENT "Compiling protocol buffer ${proto}")
-
-  set(proto_src ${proto_src} "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.cc"
-                "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.h")
+                             ${proto_file}
+                     DEPENDS ${proto_file}
+                     COMMENT "Compiling protocol buffer ${proto_file}")
 
   set_source_files_properties(
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.proto"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.cc"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.pb.h"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.cpp"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.py.cpp"
-    "${CMAKE_CURRENT_BINARY_DIR}/${file_we}.h"
+    "${output_dir}/${file_we}.pb"
+    "${output_dir}/${file_we}.proto"
+    "${output_dir}/${file_we}.pb.cc"
+    "${output_dir}/${file_we}.pb.h"
+    "${output_dir}/${file_we}.cpp"
+    "${output_dir}/${file_we}.py.cpp"
+    "${output_dir}/${file_we}.h"
     PROPERTIES
     GENERATED
     TRUE
@@ -41,8 +38,23 @@ foreach(proto ${protos})
     COMPILE_FLAGS "-Wno-unused-parameter -Wno-error=unused-parameter -Wno-error"
     )
 
-endforeach(proto)
+  set(${return_var} "${output_dir}/${file_we}.pb.cc"
+                    "${output_dir}/${file_we}.pb.h" PARENT_SCOPE)
+endfunction(COMPILE_PROTO)
 
-add_executable(protocol example.cpp ${proto_src})
-target_include_directories(protocol PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-target_link_libraries(protocol protobuf::libprotobuf protobuf::libprotobuf-lite)
+# Build our protobuf classes
+compile_proto("${CMAKE_CURRENT_SOURCE_DIR}/robocup.proto"
+              "${CMAKE_CURRENT_BINARY_DIR}" base_message)
+compile_proto("${CMAKE_CURRENT_SOURCE_DIR}/robocup_extension.proto"
+              "${CMAKE_CURRENT_BINARY_DIR}" extended_message)
+
+message(STATUS ${base_message})
+message(STATUS ${extended_message})
+
+add_executable(encode_base encode_base.cpp ${base_message})
+target_include_directories(encode_base PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(encode_base protobuf::libprotobuf)
+
+add_executable(encode_extended encode_extended.cpp ${extended_message})
+target_include_directories(encode_extended PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(encode_extended protobuf::libprotobuf)
