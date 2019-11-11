@@ -13,7 +13,7 @@ int main(void) {
     robocup::humanoid::Message msg;
 
     // Set the transmission timestamp
-    auto d       = std::chrono::steady_clock::now().time_since_epoch();
+    auto d       = std::chrono::system_clock::now().time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(d);
     auto nanos   = std::chrono::duration_cast<std::chrono::nanoseconds>(d - seconds);
     msg.mutable_timestamp()->set_seconds(seconds.count());

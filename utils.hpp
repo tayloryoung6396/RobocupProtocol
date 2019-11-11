@@ -7,9 +7,9 @@
 #include <iostream>
 #include <string>
 
-inline std::chrono::time_point<std::chrono::steady_clock> convert_timestamp(
+inline std::chrono::time_point<std::chrono::system_clock> convert_timestamp(
     const ::google::protobuf::Timestamp& timestamp) {
-    return std::chrono::time_point<std::chrono::steady_clock>(std::chrono::seconds(timestamp.seconds())
+    return std::chrono::time_point<std::chrono::system_clock>(std::chrono::seconds(timestamp.seconds())
                                                               + std::chrono::nanoseconds(timestamp.nanos()));
 }
 
@@ -123,7 +123,7 @@ inline void parse_message(const std::string& string_msg) {
     msg.ParseFromString(string_msg);
 
     // Set the received timestamp
-    auto d       = std::chrono::steady_clock::now().time_since_epoch();
+    auto d       = std::chrono::system_clock::now().time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(d);
     auto nanos   = std::chrono::duration_cast<std::chrono::nanoseconds>(d - seconds);
     msg.mutable_received()->set_seconds(seconds.count());
