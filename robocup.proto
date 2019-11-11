@@ -39,10 +39,10 @@ message Robot {
     /// The position of the robot on the field according to the following convention
     /// x meters along the field with 0 at the centre of the field and positive towards opponent goals
     /// y meters across the field with 0 at the centre of the field and positive to the left
-    /// ? orientation of the robot (anti-clockwise from the x axis from above the field)
+    /// θ orientation of the robot (anti-clockwise from the x axis from above the field)
     fvec3 position = 2;
 
-    /// The covariance measure of the robots [x, y, ?] values
+    /// The covariance measure of the robots [x, y, θ] values
     /// If this is unavailable leave this unset
     fmat3 covariance = 3;
 
@@ -89,9 +89,9 @@ message Message {
     /// Position, orientation, and covariance of detected robots on the field
     repeated Robot others = 4;
 
-    /// The current walk speed of the robot in it's local [x, y, ?] coordinates
-    /// x and y in m/s and ? in rad/s
-    /// positive x being forwards, positive y being strafing to the left, and positive ? being anti-clockwise
+    /// The current walk speed of the robot in it's local [x, y, θ] coordinates
+    /// x and y in m/s and θ in rad/s
+    /// positive x being forwards, positive y being strafing to the left, and positive θ being anti-clockwise
     fvec3 walk_command = 5;
 
     /// Position and orientation of the players target on the field specified
