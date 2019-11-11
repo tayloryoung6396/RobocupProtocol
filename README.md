@@ -7,8 +7,10 @@ This repository contains example protobuf messages and some code examples for en
 ```bash
 RobocupProtocol/
 ├── CMakeLists.txt                   # CMake project file
-├── encode_base.cpp                  # Encode the official message, decode extended message
-├── encode_extended.cpp              # Encode the extended message, decode official message
+├── decode_base.cpp                  # Decode using the official message
+├── decode_extended.cpp              # Decode using the extended message
+├── encode_base.cpp                  # Encode using the official message
+├── encode_extended.cpp              # Encode using the extended message
 ├── robocup.proto                    # The official message
 ├── robocup_extension.proto          # The extended message
 └── utils.hpp                        # Utility functions for interpreting message contents
@@ -23,11 +25,13 @@ make
 ```
 
 ## Running
-There are two binaries that are built `encode_base` and `encode_extended`. 
+There are four binaries that are built `encode_base`, `encode_extended`, `decode_base`, and `decode_extended`. 
 
-`encode_base` will create a message conforming to the official standard and save it to a file named `base_message.pb`. 
-If a file named `extended_message.pb` exists it will open that file and try to parse it using the official message format, and it will then print its contents to the screen.
+`encode_base` will create a message using the official message protocol and save it to a file named `base_message.pb`. 
 
-`encode_extended` will create a message with non-standard information in it and save it to a file named `extended_message.pb`. 
-If a file named `base_message.pb` exists it will open that file and try to parse it using the extended message format, and it will then print its contents to the screen.
+`encode_extended` will create a message using the extended message protocol and save it to a file named `extended_message.pb`. 
+
+`decode_base` will take a file as an argument and will decode that file using the official message protocol and print it to the screen in a json format.
+
+`decode_extended` will take a file as an argument and will decode that file using the extended message protocol and print it to the screen in a json format.
 
