@@ -10,7 +10,8 @@ RobocupProtocol/
 ├── encode_base.cpp                  # Encode the official message, decode extended message
 ├── encode_extended.cpp              # Encode the extended message, decode official message
 ├── robocup.proto                    # The official message
-└── robocup_extension.proto          # The extended message
+├── robocup_extension.proto          # The extended message
+└── utils.hpp                        # Utility functions for interpreting message contents
 ```
 
 ## Compiling
