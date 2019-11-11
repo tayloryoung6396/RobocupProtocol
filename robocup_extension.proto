@@ -42,7 +42,8 @@ message Robot {
     /// θ orientation of the robot (anti-clockwise from the x axis from above the field)
     fvec3 position = 2;
 
-    /// The covariance measure of the robots [x, y, θ] values or 0 if not available
+    /// The covariance measure of the robots [x, y, θ] values
+    /// If this is unavailable leave this unset
     fmat3 covariance = 3;
 
     /// Robot team, if known
@@ -63,7 +64,8 @@ message Ball {
     /// Set to 0 if not available
     fvec3 velocity = 2;
 
-    /// The covariance measure of the balls [x, y, z] values or 0 if not available
+    /// The covariance measure of the balls [x, y, z] values
+    /// If this is unavailable leave this unset
     fmat3 covariance = 3;
 }
 
@@ -78,32 +80,30 @@ message Message {
     /// Timestamp of message creation
     google.protobuf.Timestamp timestamp = 1;
 
+    /// The robots current state
+    State state = 2;
+
     /// Position, orientation, and covariance of the player on the field
-    Robot pose = 2;
-
-    /// Position, velocity, and covariance of the ball on the field
-    Ball ball = 3;
-
-    /// Position, orientation, and covariance of detected robots on the field
-    repeated Robot others = 4;
+    Robot current_pose = 3;
 
     /// The current walk speed of the robot in it's local [x, y, θ] coordinates
     /// x and y in m/s and θ in rad/s
     /// positive x being forwards, positive y being strafing to the left, and positive θ being anti-clockwise
-    fvec3 walk_command = 5;
+    fvec3 walk_command = 4;
 
     /// Position and orientation of the players target on the field specified
-    Robot target_pose = 6;
+    Robot target_pose = 5;
 
     /// Position that the robot is aiming to kick the ball to
     /// If no kick is planned set to [0, 0]
     /// Vector has origin on the ground between the robots feet
-    fvec2 kick_target = 7;
+    fvec2 kick_target = 6;
 
-    /// The robots current state
-    State state = 8;
+    /// Position, velocity, and covariance of the ball on the field
+    Ball ball = 7;
 
-    /// IDs 1-100 are reserved for official use
+    /// Position, orientation, and covariance of detected robots on the field
+    repeated Robot others = 8;
 
     /// Maximum walking speed of the robot
     float max_walking_speed = 101;

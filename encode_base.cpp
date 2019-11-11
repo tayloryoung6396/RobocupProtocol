@@ -20,20 +20,20 @@ int main(void) {
     msg.mutable_timestamp()->set_nanos(nanos.count());
 
     // Set player details
-    msg.mutable_pose()->set_player_id(3);
-    msg.mutable_pose()->set_team(robocup::humanoid::Team::BLUE);
-    msg.mutable_pose()->mutable_position()->set_x(1.0f);
-    msg.mutable_pose()->mutable_position()->set_y(3.0f);
-    msg.mutable_pose()->mutable_position()->set_z(M_PI / 3);
-    msg.mutable_pose()->mutable_covariance()->mutable_x()->set_x(1.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_x()->set_y(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_x()->set_z(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_y()->set_x(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_y()->set_y(1.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_y()->set_z(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_z()->set_x(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_z()->set_y(0.0f);
-    msg.mutable_pose()->mutable_covariance()->mutable_z()->set_z(1.0f);
+    msg.mutable_current_pose()->set_player_id(3);
+    msg.mutable_current_pose()->set_team(robocup::humanoid::Team::BLUE);
+    msg.mutable_current_pose()->mutable_position()->set_x(1.0f);
+    msg.mutable_current_pose()->mutable_position()->set_y(3.0f);
+    msg.mutable_current_pose()->mutable_position()->set_z(M_PI / 3);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_x()->set_x(1.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_x()->set_y(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_x()->set_z(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_y()->set_x(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_y()->set_y(1.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_y()->set_z(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_z()->set_x(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_z()->set_y(0.0f);
+    msg.mutable_current_pose()->mutable_covariance()->mutable_z()->set_z(1.0f);
 
     // Set ball details
     msg.mutable_ball()->mutable_position()->set_x(2.0f);
