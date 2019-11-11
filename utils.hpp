@@ -52,13 +52,6 @@ inline void parse_message(const std::string& string_msg) {
     // Parse the received message, this will ignore any IDs that aren't defined in the official message
     msg.ParseFromString(string_msg);
 
-    // Set the received timestamp
-    auto d       = std::chrono::system_clock::now().time_since_epoch();
-    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(d);
-    auto nanos   = std::chrono::duration_cast<std::chrono::nanoseconds>(d - seconds);
-    msg.mutable_received()->set_seconds(seconds.count());
-    msg.mutable_received()->set_nanos(nanos.count());
-
     print_message<T>(msg);
 }
 

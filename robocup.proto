@@ -78,33 +78,30 @@ message Message {
     /// Timestamp of message creation
     google.protobuf.Timestamp timestamp = 1;
 
-    /// Timestamp of message reception
-    google.protobuf.Timestamp received = 2;
-
     /// Position, orientation, and covariance of the player on the field
-    Robot pose = 3;
+    Robot pose = 2;
 
     /// Position, velocity, and covariance of the ball on the field
-    Ball ball = 4;
+    Ball ball = 3;
 
     /// Position, orientation, and covariance of detected robots on the field
-    repeated Robot others = 5;
+    repeated Robot others = 4;
 
     /// The current walk speed of the robot in it's local [x, y, ?] coordinates
     /// x and y in m/s and ? in rad/s
     /// positive x being forwards, positive y being strafing to the left, and positive ? being anti-clockwise
-    fvec3 walk_command = 6;
+    fvec3 walk_command = 5;
 
     /// Position and orientation of the players target on the field specified
-    Robot target_pose = 7;
+    Robot target_pose = 6;
 
     /// Position that the robot is aiming to kick the ball to
     /// If no kick is planned set to [0, 0]
     /// Vector has origin on the ground between the robots feet
-    fvec2 kick_target = 8;
+    fvec2 kick_target = 7;
 
     /// The robots current state
-    State state = 9;
+    State state = 8;
 
     /// IDs 1-100 are reserved for official use
 }
