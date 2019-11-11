@@ -42,7 +42,8 @@ message Robot {
     /// ? orientation of the robot (anti-clockwise from the x axis from above the field)
     fvec3 position = 2;
 
-    /// The covariance measure of the robots [x, y, ?] values or 0 if not available
+    /// The covariance measure of the robots [x, y, ?] values
+    /// If this is unavailable leave this unset
     fmat3 covariance = 3;
 
     /// Robot team, if known
@@ -63,7 +64,8 @@ message Ball {
     /// Set to 0 if not available
     fvec3 velocity = 2;
 
-    /// The covariance measure of the balls [x, y, z] values or 0 if not available
+    /// The covariance measure of the balls [x, y, z] values
+    /// If this is unavailable leave this unset
     fmat3 covariance = 3;
 }
 
